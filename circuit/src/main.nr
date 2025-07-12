@@ -1,3 +1,3 @@
-fn main(guess_hash: [u8; 32], answer_hash: [u8; 32]) {
+fn main(guess_hash: Field, answer_hash: pub Field) {
     assert(guess_hash == answer_hash);
 }
