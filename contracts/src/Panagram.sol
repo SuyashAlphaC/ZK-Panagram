@@ -46,7 +46,7 @@ contract Panagram is ERC1155, Ownable{
         emit Panagram__NewRoundStarted(s_roundStartTime, s_currentRound, _answer);
     }
 
-    function makeGuess(bytes memory proof) external {
+    function makeGuess(bytes memory proof) external returns (bool){
         if(s_currentRound == 0) {
             revert Panagram__NoRoundYet(s_currentRound);
         }
@@ -54,8 +54,9 @@ contract Panagram is ERC1155, Ownable{
             revert Panagram__AlreadyGuessedCorrectly(s_currentRound, msg.sender);
         }
 
-        bytes32[] memory publicInputs = new bytes32[](1);
+        bytes32[] memory publicInputs = new bytes32[](2);
         publicInputs[0] = s_answer;
+        publicInputs[1] = bytes32(uint256(uint160(msg.sender)));
         bool proofOutput = s_verifier.verify(proof, publicInputs);
         if(!proofOutput) {
             revert Panagram__InvalidProof();
@@ -69,6 +70,7 @@ contract Panagram is ERC1155, Ownable{
             _mint(msg.sender , 1, 1, "");
             emit Panagram__RunnerUpsCrowned(s_currentRound, msg.sender);
         }
+        return proofOutput;
 
     }
     function setVerifier(IVerifier _verifier) external onlyOwner {
