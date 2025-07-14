@@ -45,7 +45,7 @@ contract TestPanagram is Test {
         vm.assertEq(panagram.balanceOf(user , 1), 0);
     }
 
-    function testStartSecodeRound() public {
+    function testStartSecondRound() public {
         vm.prank(user);
         bytes memory proof = _getProof(ANSWER, ANSWER, user);
         panagram.makeGuess(proof);
