@@ -33,7 +33,7 @@ contract TestPanagram is Test {
         inputs[2] = "js-scripts/generateProof.ts";
         inputs[3] = vm.toString(guess);
         inputs[4] = vm.toString(correctAnswer);
-        inputs[5] = vm.toString(_user);
+        inputs[5] = vm.toString(bytes32(uint256(uint160(_user))));
         bytes memory encodedProof = vm.ffi(inputs);
         proof = abi.decode(encodedProof, (bytes));
         console.logBytes(proof);
