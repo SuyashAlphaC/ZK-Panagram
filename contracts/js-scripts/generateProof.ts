@@ -24,8 +24,8 @@ export default async function generateProof() {
         //create the inputs
         const inputs = {
             guess_hash: inputsArray[0],
-            answer_hash: inputsArray[1],
-            user: inputsArray[2]
+            answer_double_hash: inputsArray[1],
+            address: inputsArray[2]
         }
         const { witness } = await noir.execute(inputs);
         const originallog = console.log;
@@ -60,6 +60,4 @@ export default async function generateProof() {
         })
 }
 )();
-
-
 
